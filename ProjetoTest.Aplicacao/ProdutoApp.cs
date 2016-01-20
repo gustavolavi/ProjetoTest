@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjetoTest.Dominio;
 using ProjetoTest.Repositorio;
 
@@ -64,7 +61,7 @@ namespace ProjetoTest.Aplicacao
             {
                 var strQuery = "SELECT * FROM Produto";
                 var reader = contexto.Leitura(strQuery);
-                return convertReader(reader);
+                return ConvertReader(reader);
             }
             
         }
@@ -75,11 +72,11 @@ namespace ProjetoTest.Aplicacao
             {
                 var strQuery = string.Format("SELECT * FROM Produto WHERE Id='{0}'", id);
                 var reader = contexto.Leitura(strQuery);
-                return convertReader(reader).FirstOrDefault();
+                return ConvertReader(reader).FirstOrDefault();
             }
         } 
 
-        private List<Produto> convertReader(SqlDataReader reader)
+        private List<Produto> ConvertReader(SqlDataReader reader)
         {
             var usuarios = new List<Produto>();
             while (reader.Read())

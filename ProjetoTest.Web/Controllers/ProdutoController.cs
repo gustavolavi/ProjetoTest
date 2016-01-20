@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using ProjetoTest.Aplicacao;
 using ProjetoTest.Dominio;
 
@@ -10,11 +6,16 @@ namespace ProjetoTest.Web.Controllers
 {
     public class ProdutoController : Controller
     {
+        protected readonly ProdutoApp _produto;
+        public ProdutoApp ProdutoApp()
+        {
+            return _produto != null ? _produto : new ProdutoApp();
+        }
+
         // GET: Produto
         public ActionResult Index()
         {
-            var appProduto = new ProdutoApp();
-            var produtos = appProduto.Lista();
+            var produtos = ProdutoApp().Lista();
             return View(produtos);
         }
 
@@ -28,8 +29,7 @@ namespace ProjetoTest.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appProduto = new ProdutoApp();
-                appProduto.Salvar(produto);
+                ProdutoApp().Salvar(produto);
                 return RedirectToAction("Index");
             }
             return View(produto);
@@ -37,8 +37,7 @@ namespace ProjetoTest.Web.Controllers
 
         public ActionResult Editar(int id)
         {
-            var appProduto = new ProdutoApp();
-            var produto = appProduto.ListarId(id);
+            var produto = ProdutoApp().ListarId(id);
             return View(produto);
         }
 
@@ -47,8 +46,7 @@ namespace ProjetoTest.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appProduto = new ProdutoApp();
-                appProduto.Salvar(produto);
+                ProdutoApp().Salvar(produto);
                 return RedirectToAction("Index");
             }
             return View(produto);
@@ -56,17 +54,15 @@ namespace ProjetoTest.Web.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            var appProduto = new ProdutoApp();
-            var produto = appProduto.ListarId(id);
+            var produto = ProdutoApp().ListarId(id);
             return View(produto);
         }
 
 
         public ActionResult Excluir(int id)
         {
-            var appProduto = new ProdutoApp();
-            var produto = appProduto.ListarId(id);
-            appProduto.Excluir(produto.Id);
+            var produto = ProdutoApp().ListarId(id);
+            ProdutoApp().Excluir(produto.Id);
             return RedirectToAction("Index");
         }
 
